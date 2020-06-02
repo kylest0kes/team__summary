@@ -4,6 +4,9 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const buildManager = require("./questions/manager.js");
+const buildEngineer = require("./questions/engineer.js");
+const buildIntern = require("./questions/intern.js");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -13,6 +16,19 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+console.log("Please build your team.")
+inquirer
+    .prompt(buildManager).then(function(response) {
+        fs.writeFile("manager.html", render, function(err) {
+
+            if (err) {
+                return console.log(err);
+            }
+
+        })
+
+    })
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
