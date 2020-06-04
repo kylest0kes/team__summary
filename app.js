@@ -8,15 +8,16 @@ const buildManager = require("./questions/manager");
 const buildEngineer = require("./questions/engineer");
 const buildIntern = require("./questions/intern");
 
+const util = require("util");
+const asyncWriteFile = util.promisify(fs.writeFile)
+
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const managerArr = [];
-const engineerArr = [];
-const internArr = [];
+
 const employees = [];
 const teamIDArr = [];
 
@@ -33,14 +34,15 @@ async function init() {
         const teamManager = await inquirer.prompt(buildManager);
         teamIDArr.push(teamManager.managerID);
         const manager = new Manager (teamManager.managerName, teamManager.managerEmail, teamManager.managerID, teamManager.managerOfficeNumber)
-        managerArr.push(manager);
-        console.log(managerArr);
+        employees.push(manager);
+        console.log(employees);
         if (teamManager.addMember === "Engineer") {
             engineerMember();
         } else if (teamManager.addMember === "Intern") {
             internMember();
-        } else if (teamManager.addMember === "I don't want to add anymore team members.") {
+        }  else {
             console.log("You have successfully built your team!");
+            renderHTML()
         }
     } 
     catch(err) {
@@ -53,14 +55,15 @@ async function engineerMember() {
         const teamEngineer = await inquirer.prompt(buildEngineer);
         teamIDArr.push(teamEngineer.engineerID);
         const engineer = new Engineer (teamEngineer.engineerName, teamEngineer.engineerEmail, teamEngineer.engineerID, teamEngineer.engineerGithub)
-        engineerArr.push(engineer);
-        console.log(engineerArr);
+        employees.push(engineer);
+        console.log(employees);
         if (teamEngineer.addMember === "Engineer") {
             engineerMember();
         } else if (teamEngineer.addMember === "Intern") {
             internMember();
-        } else if (teamEngineer.addMember === "I don't want to add anymore team members.") {
+        }  else {
             console.log("You have successfully built your team!");
+            renderHTML()
         }
     } 
     catch(err) {
@@ -73,14 +76,15 @@ async function internMember() {
         const teamIntern = await inquirer.prompt(buildIntern);
         teamIDArr.push(teamIntern.internID);
         const intern = new Intern (teamIntern.internName, teamIntern.internEmail, teamIntern.internID, teamIntern.internSchool)
-        internArr.push(intern);
-        console.log(internArr);
+        employees.push(intern);
+        console.log(employees);
         if (teamIntern.addMember === "Engineer") {
             engineerMember();
         } else if (teamIntern.addMember === "Intern") {
             internMember();
-        } else if (teamIntern.addMember === "I don't want to add anymore team members.") {
+        } else {
             console.log("You have successfully built your team!");
+            renderHTML()
         }
     } 
     catch(err) {
@@ -90,7 +94,10 @@ async function internMember() {
 
 async function renderHTML() {
     try {
-        console.log(employees);
+        console.log("worked")
+        const newHTML = render(employees)
+        console.log(newHTML);
+        await asyncWriteFile(outputPath, newHTML)
     }
     catch(err) {
         console.log(err);
