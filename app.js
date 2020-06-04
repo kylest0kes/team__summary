@@ -35,7 +35,6 @@ async function init() {
         teamIDArr.push(teamManager.managerID);
         const manager = new Manager (teamManager.managerName, teamManager.managerEmail, teamManager.managerID, teamManager.managerOfficeNumber)
         employees.push(manager);
-        console.log(employees);
         if (teamManager.addMember === "Engineer") {
             engineerMember();
         } else if (teamManager.addMember === "Intern") {
@@ -56,7 +55,6 @@ async function engineerMember() {
         teamIDArr.push(teamEngineer.engineerID);
         const engineer = new Engineer (teamEngineer.engineerName, teamEngineer.engineerEmail, teamEngineer.engineerID, teamEngineer.engineerGithub)
         employees.push(engineer);
-        console.log(employees);
         if (teamEngineer.addMember === "Engineer") {
             engineerMember();
         } else if (teamEngineer.addMember === "Intern") {
@@ -77,7 +75,6 @@ async function internMember() {
         teamIDArr.push(teamIntern.internID);
         const intern = new Intern (teamIntern.internName, teamIntern.internEmail, teamIntern.internID, teamIntern.internSchool)
         employees.push(intern);
-        console.log(employees);
         if (teamIntern.addMember === "Engineer") {
             engineerMember();
         } else if (teamIntern.addMember === "Intern") {
@@ -94,9 +91,7 @@ async function internMember() {
 
 async function renderHTML() {
     try {
-        console.log("worked")
         const newHTML = render(employees)
-        console.log(newHTML);
         await asyncWriteFile(outputPath, newHTML)
     }
     catch(err) {
