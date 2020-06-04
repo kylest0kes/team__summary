@@ -7,30 +7,77 @@ const fs = require("fs");
 const buildManager = require("./questions/manager");
 const buildEngineer = require("./questions/engineer");
 const buildIntern = require("./questions/intern");
-const addMember = require("./questions/addmember");
+
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const builtTeamArr = [];
+const teamIDArr = [];
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-console.log("Please build your team.")
-inquirer
-    .prompt(buildManager).then(function(response) {
-        fs.writeFile("manager.html", render, function(err) {
-
-            if (err) {
-                return console.log(err);
-            }
-
-        })
-
-    })
 
 
+init()
+
+async function init() {
+    console.log("Please build your team.")
+    try {
+        const teamManager = await inquirer.prompt(buildManager);
+        teamIDArr.push(teamManager.managerID);
+        console.log(teamIDArr);
+        const manager = new Manager (teamManager.managerName, teamManager.managerEmail, teamManager.managerID, teamManager.managerOfficeNumber)
+        console.log(manager);
+        if (teamManager.addMember === "Engineer") {
+            engineerMember();
+        } else if (teamManager.addMember === "Intern") {
+            internMember();
+        }
+    } 
+    catch(err) {
+        console.log(err);
+    }
+}
+
+async function engineerMember() {
+    try {
+        const teamEngineer = await inquirer.prompt(buildEngineer);
+        teamIDArr.push(teamEngineer.engineerID);
+        console.log(teamIDArr);
+        const engineer = new Engineer (teamEngineer.engineerName, teamEngineer.engineerEmail, teamEngineer.engineerID, teamEngineer.engineerOfficeNumber)
+        console.log(engineer);
+        if (teamEngineer.addMember === "Engineer") {
+            engineerMember();
+        } else if (teamEngineer.addMember === "Intern") {
+            internMember();
+        }
+    } 
+    catch(err) {
+        console.log(err);
+    }
+}
+
+async function internMember() {
+    try {
+        const teamIntern = await inquirer.prompt(buildIntern);
+        teamIDArr.push(teamIntern.internID);
+        console.log(teamIDArr);
+        const intern = new Intern (teamIntern.internName, teamIntern.internEmail, teamIntern.internID, teamIntern.internOfficeNumber)
+        console.log(intern);
+        if (teamIntern.addMember === "Engineer") {
+            engineerMember();
+        } else if (teamIntern.addMember === "Intern") {
+            internMember();
+        }
+    } 
+    catch(err) {
+        console.log(err);
+    }
+}
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!

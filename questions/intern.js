@@ -2,23 +2,29 @@ const buildIntern = [
     {
         type: "input",
         message: "What is the intern's name?",
-        name: "name",
+        name: "internName",
     },
     {
         type: "input",
         message: "What is the intern's email?",
-        name: "email",
+        name: "internEmail",
     },
     {
         type: "input",
         message: "What is the intern's ID number?",
-        name: "id",
+        name: "internID",
     },
     {
         type: "input",
         message: "What school did they attend?",
-        name: "school",
+        name: "internSchool",
     },
+    {
+        type: "list", 
+        message: "What type of team member would you like to add?",
+        choices: ["Engineer", "Intern", "I don't want to add anymore team members."],
+        name: "addMember"
+      },
 ]
 
 module.exports = buildIntern;
