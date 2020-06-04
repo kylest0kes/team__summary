@@ -14,7 +14,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const builtTeamArr = [];
+const teamArr = [];
 const teamIDArr = [];
 
 
@@ -31,6 +31,8 @@ async function init() {
         teamIDArr.push(teamManager.managerID);
         console.log(teamIDArr);
         const manager = new Manager (teamManager.managerName, teamManager.managerEmail, teamManager.managerID, teamManager.managerOfficeNumber)
+        teamArr.push(manager);
+        console.log(teamArr);
         console.log(manager);
         if (teamManager.addMember === "Engineer") {
             engineerMember();
@@ -49,6 +51,8 @@ async function engineerMember() {
         teamIDArr.push(teamEngineer.engineerID);
         console.log(teamIDArr);
         const engineer = new Engineer (teamEngineer.engineerName, teamEngineer.engineerEmail, teamEngineer.engineerID, teamEngineer.engineerOfficeNumber)
+        teamArr.push(engineer);
+        console.log(teamArr);
         console.log(engineer);
         if (teamEngineer.addMember === "Engineer") {
             engineerMember();
@@ -67,6 +71,8 @@ async function internMember() {
         teamIDArr.push(teamIntern.internID);
         console.log(teamIDArr);
         const intern = new Intern (teamIntern.internName, teamIntern.internEmail, teamIntern.internID, teamIntern.internOfficeNumber)
+        teamArr.push(intern);
+        console.log(teamArr);
         console.log(intern);
         if (teamIntern.addMember === "Engineer") {
             engineerMember();
