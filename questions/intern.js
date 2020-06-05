@@ -3,21 +3,48 @@ const buildIntern = [
         type: "input",
         message: "What is the intern's name?",
         name: "internName",
+        validate: function(input) {
+            if (input !== "") {
+                return true;
+            }
+            return "Please enter a Intern name."
+        }
     },
     {
         type: "input",
         message: "What is the intern's email?",
         name: "internEmail",
+        validate: function(input) {
+            if (input !== "") {
+                return true;
+            }
+            return "Please enter a Intern email."
+        }
     },
     {
         type: "input",
         message: "What is the intern's ID number?",
         name: "internID",
+        //validate: function(input) {
+            //for(let i = 0; i < teamIDArr.length; i++) {
+               // if(input == teamIDArr[i]) {
+                 //   console.log('That ID already exists, please choose another ID.')
+                //} else {
+              //      return true
+            //    }
+          //  }
+        //}
     },
     {
         type: "input",
         message: "What school did they attend?",
         name: "internSchool",
+        validate: function(input) {
+            if (input !== "") {
+                return true;
+            }
+            return "Please enter a Intern school."
+        }
     },
     {
         type: "list", 
