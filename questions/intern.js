@@ -25,15 +25,11 @@ const buildIntern = [
         type: "input",
         message: "What is the intern's ID number?",
         name: "internID",
-        //validate: function(input) {
-            //for(let i = 0; i < teamIDArr.length; i++) {
-               // if(input == teamIDArr[i]) {
-                 //   console.log('That ID already exists, please choose another ID.')
-                //} else {
-              //      return true
-            //    }
-          //  }
-        //}
+//        validate: function (input) {
+//            if (teamIDArr.indexOf(input) !== -1) {
+//                return "ID already exists, please enter a new ID.";
+//            } return true;
+//        }
     },
     {
         type: "input",

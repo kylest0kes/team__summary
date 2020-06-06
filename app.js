@@ -16,8 +16,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const employees = [];
-const teamIDArr = [];
+let employees = [];
+let teamIDArr = [];
 
 init()
 

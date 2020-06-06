@@ -32,7 +32,9 @@ const buildManager = [
         name: "managerOfficeNumber",
         validate: function(input) {
             if(input.length < 10) {
-                console.log('Please enter a valid phone number.')
+                return 'Please enter a valid phone number.';
+            } else if(input.length > 10) {
+                return 'Please enter a valid phone number.';
             } else {
                 return true
             }
